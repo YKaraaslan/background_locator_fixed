@@ -1,23 +1,26 @@
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:background_locator_2/keys.dart';
-import 'package:background_locator_2/location_dto.dart';
-import 'package:background_locator_2/settings/android_settings.dart';
-import 'package:background_locator_2/settings/ios_settings.dart';
+import '../keys.dart';
+import '../location_dto.dart';
+import '../settings/android_settings.dart';
+import '../settings/ios_settings.dart';
 
 class SettingsUtil {
-  static Map<String, dynamic> getArgumentsMap(
-      {required void Function(LocationDto) callback,
-      void Function(Map<String, dynamic>)? initCallback,
-      Map<String, dynamic>? initDataCallback,
-      void Function()? disposeCallback,
-      AndroidSettings androidSettings = const AndroidSettings(),
-      IOSSettings iosSettings = const IOSSettings()}) {
-    final args = _getCommonArgumentsMap(callback: callback,
-        initCallback: initCallback,
-        initDataCallback: initDataCallback,
-        disposeCallback: disposeCallback);
+  static Map<String, dynamic> getArgumentsMap({
+    required void Function(LocationDto) callback,
+    void Function(Map<String, dynamic>)? initCallback,
+    Map<String, dynamic>? initDataCallback,
+    void Function()? disposeCallback,
+    AndroidSettings androidSettings = const AndroidSettings(),
+    IOSSettings iosSettings = const IOSSettings(),
+  }) {
+    final args = _getCommonArgumentsMap(
+      callback: callback,
+      initCallback: initCallback,
+      initDataCallback: initDataCallback,
+      disposeCallback: disposeCallback,
+    );
 
     if (Platform.isAndroid) {
       args.addAll(_getAndroidArgumentsMap(androidSettings));
@@ -32,7 +35,7 @@ class SettingsUtil {
     required void Function(LocationDto) callback,
     void Function(Map<String, dynamic>)? initCallback,
     Map<String, dynamic>? initDataCallback,
-    void Function()? disposeCallback
+    void Function()? disposeCallback,
   }) {
     final Map<String, dynamic> args = {
       Keys.ARG_CALLBACK:
@@ -47,25 +50,25 @@ class SettingsUtil {
       args[Keys.ARG_DISPOSE_CALLBACK] =
           PluginUtilities.getCallbackHandle(disposeCallback)!.toRawHandle();
     }
-    if (initDataCallback != null ){
+    if (initDataCallback != null) {
       args[Keys.ARG_INIT_DATA_CALLBACK] = initDataCallback;
-
     }
 
     return args;
   }
 
   static Map<String, dynamic> _getAndroidArgumentsMap(
-      AndroidSettings androidSettings) {
+    AndroidSettings androidSettings,
+  ) {
     final Map<String, dynamic> args = {
-      Keys.ARG_SETTINGS: androidSettings.toMap()
+      Keys.ARG_SETTINGS: androidSettings.toMap(),
     };
 
     if (androidSettings.androidNotificationSettings.notificationTapCallback !=
         null) {
       args[Keys.ARG_NOTIFICATION_CALLBACK] = PluginUtilities.getCallbackHandle(
-              androidSettings
-                  .androidNotificationSettings.notificationTapCallback!)!
+        androidSettings.androidNotificationSettings.notificationTapCallback!,
+      )!
           .toRawHandle();
     }
 

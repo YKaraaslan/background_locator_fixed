@@ -28,7 +28,7 @@ class LocationDto {
   );
 
   factory LocationDto.fromJson(Map<dynamic, dynamic> json) {
-    bool isLocationMocked =
+    final bool isLocationMocked =
         Platform.isAndroid ? json[Keys.ARG_IS_MOCKED] : false;
     return LocationDto._(
       json[Keys.ARG_LATITUDE],
@@ -46,16 +46,16 @@ class LocationDto {
 
   Map<String, dynamic> toJson() {
     return {
-      Keys.ARG_LATITUDE: this.latitude,
-      Keys.ARG_LONGITUDE: this.longitude,
-      Keys.ARG_ACCURACY: this.accuracy,
-      Keys.ARG_ALTITUDE: this.altitude,
-      Keys.ARG_SPEED: this.speed,
-      Keys.ARG_SPEED_ACCURACY: this.speedAccuracy,
-      Keys.ARG_HEADING: this.heading,
-      Keys.ARG_TIME: this.time,
-      Keys.ARG_IS_MOCKED: this.isMocked,
-      Keys.ARG_PROVIDER: this.provider,
+      Keys.ARG_LATITUDE: latitude,
+      Keys.ARG_LONGITUDE: longitude,
+      Keys.ARG_ACCURACY: accuracy,
+      Keys.ARG_ALTITUDE: altitude,
+      Keys.ARG_SPEED: speed,
+      Keys.ARG_SPEED_ACCURACY: speedAccuracy,
+      Keys.ARG_HEADING: heading,
+      Keys.ARG_TIME: time,
+      Keys.ARG_IS_MOCKED: isMocked,
+      Keys.ARG_PROVIDER: provider,
     };
   }
 
