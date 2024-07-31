@@ -1,4 +1,4 @@
-name: background_locator_2
+name: background_locator
 description: A Flutter plugin for background location.
 version: 1.0.0
 platforms:

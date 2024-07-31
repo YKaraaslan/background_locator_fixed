@@ -7,7 +7,7 @@ import karaaslan.yunus.background_locator.provider.LocationClient
 
 class PreferencesManager {
     companion object {
-        private const val PREF_NAME = "background_locator_2"
+        private const val PREF_NAME = "background_locator"
 
         @JvmStatic
         fun saveCallbackDispatcher(context: Context, map: Map<Any, Any>) {
