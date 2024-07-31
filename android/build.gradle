@@ -1,4 +1,4 @@
-group 'yukams.app.background_locator_2'
+group 'karaaslan.yunus.background_locator'
 version '1.0-SNAPSHOT'
 
 buildscript {

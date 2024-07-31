@@ -1,4 +1,4 @@
-package yukams.app.background_locator_2
+package karaaslan.yunus.background_locator
 
 class Keys {
     companion object {
@@ -24,10 +24,10 @@ class Keys {
         val DISPOSE_CALLBACK_HANDLE_KEY = "DISPOSE_CALLBACK_HANDLE_KEY"
 
         @JvmStatic
-        val CHANNEL_ID = "app.yukams/locator_plugin"
+        val CHANNEL_ID = "karaaslan.yunus/locator_plugin"
 
         @JvmStatic
-        val BACKGROUND_CHANNEL_ID = "app.yukams/locator_plugin_background"
+        val BACKGROUND_CHANNEL_ID = "karaaslan.yunus/locator_plugin_background"
 
         @JvmStatic
         val METHOD_SERVICE_INITIALIZED = "LocatorService.initialized"

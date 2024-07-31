@@ -1,4 +1,4 @@
-package yukams.app.background_locator_2
+package karaaslan.yunus.background_locator
 
 import android.content.BroadcastReceiver
 import android.content.Context

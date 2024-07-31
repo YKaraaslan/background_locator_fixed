@@ -1,11 +1,11 @@
-package yukams.app.background_locator_2.pluggables
+package karaaslan.yunus.background_locator.pluggables
 
 import android.content.Context
 import android.os.Handler
 import io.flutter.plugin.common.MethodChannel
-import yukams.app.background_locator_2.IsolateHolderService
-import yukams.app.background_locator_2.Keys
-import yukams.app.background_locator_2.PreferencesManager
+import karaaslan.yunus.background_locator.IsolateHolderService
+import karaaslan.yunus.background_locator.Keys
+import karaaslan.yunus.background_locator.PreferencesManager
 
 class DisposePluggable : Pluggable {
     override fun setCallback(context: Context, callbackHandle: Long) {
