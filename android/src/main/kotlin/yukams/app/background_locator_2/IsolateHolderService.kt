@@ -80,8 +80,12 @@ class IsolateHolderService : MethodChannel.MethodCallHandler, LocationUpdateList
 
     override fun onCreate() {
         super.onCreate()
-        startLocatorService(this)
-        startForeground(notificationId, getNotification())
+        try {
+            startLocatorService(this)
+            startForeground(notificationId, getNotification())
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun start() {
@@ -102,39 +106,49 @@ class IsolateHolderService : MethodChannel.MethodCallHandler, LocationUpdateList
     }
 
     private fun getNotification(): Notification {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // Notification channel is available in Android O and up
-            val channel = NotificationChannel(
-                Keys.CHANNEL_ID, notificationChannelName,
-                NotificationManager.IMPORTANCE_LOW
+        return try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                // Notification channel is available in Android O and up
+                val channel = NotificationChannel(
+                    Keys.CHANNEL_ID, notificationChannelName,
+                    NotificationManager.IMPORTANCE_LOW
+                )
+
+                (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
+                    .createNotificationChannel(channel)
+            }
+
+            val intent = Intent(this, getMainActivityClass(this))
+            intent.action = Keys.NOTIFICATION_ACTION
+
+            val pendingIntent: PendingIntent = PendingIntent.getActivity(
+                this,
+                1, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
             )
 
-            (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
-                .createNotificationChannel(channel)
+            NotificationCompat.Builder(this, Keys.CHANNEL_ID)
+                .setContentTitle(notificationTitle)
+                .setContentText(notificationMsg)
+                .setStyle(
+                    NotificationCompat.BigTextStyle()
+                        .bigText(notificationBigMsg)
+                )
+                .setSmallIcon(icon)
+                .setColor(notificationIconColor)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(pendingIntent)
+                .setOnlyAlertOnce(true) // so when data is updated don't make sound and alert in android 8.0+
+                .setOngoing(true)
+                .build()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // Return a default or empty notification in case of an error
+            NotificationCompat.Builder(this, Keys.CHANNEL_ID)
+                .setContentTitle("Error")
+                .setContentText("Unable to create notification")
+                .setSmallIcon(icon)
+                .build()
         }
-
-        val intent = Intent(this, getMainActivityClass(this))
-        intent.action = Keys.NOTIFICATION_ACTION
-
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(
-            this,
-            1, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-        return NotificationCompat.Builder(this, Keys.CHANNEL_ID)
-            .setContentTitle(notificationTitle)
-            .setContentText(notificationMsg)
-            .setStyle(
-                NotificationCompat.BigTextStyle()
-                    .bigText(notificationBigMsg)
-            )
-            .setSmallIcon(icon)
-            .setColor(notificationIconColor)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentIntent(pendingIntent)
-            .setOnlyAlertOnce(true) // so when data is updated don't make sound and alert in android 8.0+
-            .setOngoing(true)
-            .build()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
