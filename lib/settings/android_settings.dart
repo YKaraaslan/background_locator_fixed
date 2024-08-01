@@ -1,6 +1,7 @@
-import 'package:background_locator_2/keys.dart';
-import 'package:background_locator_2/settings/locator_settings.dart';
 import 'package:flutter/material.dart';
+
+import '../keys.dart';
+import 'locator_settings.dart';
 
 enum LocationClient { google, android }
 
@@ -26,15 +27,16 @@ class AndroidNotificationSettings {
   ///
   /// [notificationTapCallback] callback for notification tap
   ///
-  const AndroidNotificationSettings(
-      {this.notificationChannelName = 'Location tracking',
-      this.notificationTitle = 'Start Location Tracking',
-      this.notificationMsg = 'Track location in background',
-      this.notificationBigMsg =
-          'Background location is on to keep the app up-tp-date with your location. This is required for main features to work properly when the app is not running.',
-      this.notificationIcon = '',
-      this.notificationIconColor = Colors.grey,
-      this.notificationTapCallback});
+  const AndroidNotificationSettings({
+    this.notificationChannelName = 'Location tracking',
+    this.notificationTitle = 'Start Location Tracking',
+    this.notificationMsg = 'Track location in background',
+    this.notificationBigMsg =
+        'Background location is on to keep the app up-tp-date with your location. This is required for main features to work properly when the app is not running.',
+    this.notificationIcon = '',
+    this.notificationIconColor = Colors.grey,
+    this.notificationTapCallback,
+  });
 }
 
 class AndroidSettings extends LocatorSettings {
@@ -52,14 +54,14 @@ class AndroidSettings extends LocatorSettings {
   /// [androidNotificationSettings] Specific setting for android notification.
   ///
   /// [wakeLockTime] Time for living service in background in minutes. Only applies in android. Default is 60 minute.
-  const AndroidSettings(
-      {LocationAccuracy accuracy = LocationAccuracy.NAVIGATION,
-      this.interval = 5,
-      double distanceFilter = 0,
-      this.androidNotificationSettings = const AndroidNotificationSettings(),
-      this.wakeLockTime = 60,
-      this.client = LocationClient.google})
-      : super(accuracy: accuracy, distanceFilter: distanceFilter);
+  const AndroidSettings({
+    super.accuracy = LocationAccuracy.NAVIGATION,
+    this.interval = 5,
+    super.distanceFilter = 0,
+    this.androidNotificationSettings = const AndroidNotificationSettings(),
+    this.wakeLockTime = 60,
+    this.client = LocationClient.google,
+  });
 
   Map<String, dynamic> toMap() {
     return {
@@ -79,7 +81,7 @@ class AndroidSettings extends LocatorSettings {
           androidNotificationSettings.notificationIcon,
       Keys.SETTINGS_ANDROID_NOTIFICATION_ICON_COLOR:
           androidNotificationSettings.notificationIconColor.value,
-      Keys.SETTINGS_ANDROID_LOCATION_CLIENT: client.index
+      Keys.SETTINGS_ANDROID_LOCATION_CLIENT: client.index,
     };
   }
 }

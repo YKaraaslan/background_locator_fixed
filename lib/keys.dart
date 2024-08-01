@@ -1,7 +1,7 @@
 class Keys {
-  static const String CHANNEL_ID = 'app.yukams/locator_plugin';
+  static const String CHANNEL_ID = 'karaaslan.yunus/locator_plugin';
   static const String BACKGROUND_CHANNEL_ID =
-      'app.yukams/locator_plugin_background';
+      'karaaslan.yunus/locator_plugin_background';
 
   static const String METHOD_SERVICE_INITIALIZED = 'LocatorService.initialized';
   static const String METHOD_PLUGIN_INITIALIZE_SERVICE =
@@ -55,7 +55,7 @@ class Keys {
   static const String SETTINGS_ANDROID_WAKE_LOCK_TIME =
       'settings_android_wakeLockTime';
   static const String SETTINGS_ANDROID_LOCATION_CLIENT =
-      "settings_android_location_client";
+      'settings_android_location_client';
 
   static const String SETTINGS_IOS_SHOWS_BACKGROUND_LOCATION_INDICATOR =
       'settings_ios_showsBackgroundLocationIndicator';
